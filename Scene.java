@@ -46,11 +46,15 @@ public class Scene {
 */
 
 
-	public Scene(ImageIcon sceneVideo, String directionString)
+	public Scene(ImageIcon sceneVideo, String directionString, Dir northOpen, Dir eastOpen, Dir southOpen, Dir westOpen)
 		{
 			
 			this.sceneVideo = sceneVideo;
 			this.directionString = directionString;
+			this.northOpen = northOpen;
+			this.eastOpen = eastOpen;
+			this.southOpen = southOpen;
+			this.westOpen = westOpen;
 		
 		}
 
