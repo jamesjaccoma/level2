@@ -2,15 +2,18 @@
 
 import javax.swing.*;
 
+
 public class Scene {
 
 	public ImageIcon sceneVideo;
 	public String directionString;
+	
 
 	 Dir northOpen = new Dir();
 	 Dir eastOpen = new Dir();
 	 Dir southOpen = new Dir();
 	 Dir westOpen = new Dir();
+
 /*
 	public static Scene[][] coords = new Scene[10][10];
 	public static ImageIcon hillSide = new ImageIcon("hillSide.gif");
@@ -55,6 +58,7 @@ public class Scene {
 			this.eastOpen = eastOpen;
 			this.southOpen = southOpen;
 			this.westOpen = westOpen;
+			
 		
 		}
 
