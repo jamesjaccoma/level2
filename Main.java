@@ -93,7 +93,7 @@ public class Main {
 /////////////////////////////////////////////////////
 //IMPORTANT NOTE. I made these three methods static to get the program to work. I changed them to non static to see what would happen, trying to do any kind of input would cause AWT eventqeue
 //exception. I believe this is because of a conflict with JTextField, because when I went to Gui and made JTextField a non static object it worked. for the time being
-//I will leave it like this but this note is here to let you knwo that this is a possibiility for improving this code later.
+//I will leave it like this but this note is here to let me knwo that this is a possibiility for improving this code later.
 //
 //
 //
