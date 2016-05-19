@@ -18,6 +18,15 @@ class Gui extends JFrame implements ActionListener {
 	public static JTextField parser;
 	public static JTextArea output;
 	public static JTextField prompt; //THIS CAN BE NON STATIC
+	
+	// extrapolating hard coded integers into these variables (constants)
+	public static final int FRAME_WIDTH = 1000;
+	public static final int FRAME_HEIGHT = 700;
+	
+	public static final int TEXT_FIELD_WIDTH = 100;
+	public static final int TEXT_FIELD_HEIGHT = 20;
+	
+	public static final int TEXT_COLUMNS = 10;
 
 	//I tried creating an instance of Main here so that I could call the processword command from the actionlistener. This created a huge error when trying to run, it compiled fine however.
 	
@@ -35,13 +44,13 @@ class Gui extends JFrame implements ActionListener {
 
 
 		parser = new JTextField();
-	  	parser.setColumns(10);
+	  	parser.setColumns(TEXT_COLUMNS);
 	  	parser.setText(">");
 	  	parser.addActionListener(this);
 	  	
 
 	  	output = new JTextArea();
-	  	output.setPreferredSize(new Dimension(100, 20));
+	  	output.setPreferredSize(new Dimension(TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT));
 	  	output.setEditable(false);
 
 	  	
@@ -57,7 +66,7 @@ class Gui extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.getContentPane().add(controls, BorderLayout.CENTER);
-        frame.getContentPane().setPreferredSize(new Dimension(1000, 700));
+        frame.getContentPane().setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 	  	frame.pack();
         frame.setVisible(true);
 
