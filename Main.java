@@ -8,11 +8,11 @@ NEXT TASK: set up the 2d array and modify the heading function to change the dis
 
 public class Main {
 
-	
-	public ImageIcon hillSide = new ImageIcon("hillSide.gif");
-	public ImageIcon darkField = new ImageIcon("darkField.gif");
-	public ImageIcon darkTrail = new ImageIcon("darkTrail.gif");
-	public ImageIcon snowyTree = new ImageIcon("snowyTree.gif");
+	public ImageIcon rustyDome = new ImageIcon("gifs/rustyDome.gif");
+	public ImageIcon hillSide = new ImageIcon("gifs/hillSide.gif");
+	public ImageIcon darkField = new ImageIcon("gifs/darkField.gif");
+	public ImageIcon darkTrail = new ImageIcon("gifs/darkTrail.gif");
+	public ImageIcon snowyTree = new ImageIcon("gifs/snowyTree.gif");
 	public static Scene[][] coords = new Scene[10][10];
 	
 	public static int x = 1;
@@ -26,10 +26,10 @@ public class Main {
 	static String east = new String(">east");
 	static String south = new String(">south");
 	static String west = new String(">west");
-	static String n = new String(">n");
-	static String e = new String(">e");
-	static String s = new String(">s");
-	static String w = new String(">w");
+	static String nChar = new String(">n");
+	static String eChar = new String(">e");
+	static String sChar = new String(">s");
+	static String wChar = new String(">w");
 	static Dir northOpen = new Dir();
 	static Dir eastOpen = new Dir();
 	static Dir southOpen = new Dir();
@@ -37,7 +37,7 @@ public class Main {
 
 
 	public Main(){
-		parserdemo gui = new parserdemo();
+		Gui gui = new Gui();
 		createScenes();
 		changeScene(coords, x, y);
 		displayScene();
@@ -47,22 +47,29 @@ public class Main {
 
 	private void createScenes() {
 
-		Scene hillSideSc, darkFieldSc, darkTrailSc, snowyTreeSc;
+		Scene rustyDomeSc, hillSideSc, darkFieldSc, darkTrailSc, snowyTreeSc;
 
-		hillSideSc = new Scene(hillSide, "E, S");
-	 	hillSideSc.setExits(null, eastOpen, southOpen, null);
+		rustyDomeSc = new Scene(rustyDome, "S", null, null, southOpen, null);
+	 	//rustyDomeSc.setExits(null, null, southOpen, null);
+
+		hillSideSc = new Scene(hillSide, "N, E, S", northOpen, eastOpen, southOpen, null);
+	 	//hillSideSc.setExits(northOpen, eastOpen, southOpen, null);
 	 	
-	 	darkFieldSc = new Scene(darkField, "N, E");
-	 	darkFieldSc.setExits(northOpen, eastOpen, null, null);
+	 	darkFieldSc = new Scene(darkField, "N, E", northOpen, eastOpen, null, null);
+	 	//darkFieldSc.setExits(northOpen, eastOpen, null, null);
 	 	
-	 	darkTrailSc = new Scene(darkTrail, "W");
-	 	darkTrailSc.setExits(null, null, null, westOpen);
+	 	darkTrailSc = new Scene(darkTrail, "W", null, null, null, westOpen);
+	 	//darkTrailSc.setExits(null, null, null, westOpen);
 
-	 	snowyTreeSc = new Scene(snowyTree, "W");
-	 	snowyTreeSc.setExits(null, null, null, westOpen);
+	 	snowyTreeSc = new Scene(snowyTree, "W", null, null, null, westOpen);
+	 	//snowyTreeSc.setExits(null, null, null, westOpen);
 
-	 	//currentScene = hillSideSc; I THOUGHT this would 
+	 	/*currentScene = hillSideSc; I THOUGHT this might fix the memory leak but i dont know why it would necessarily. 
+	 	I think possibly the issue is that the hillside gif is TOO LONG?
+		File size is more than double that of all other gifs so that probably is the issue. increase max memory storage??
 
+		*/
+	 	coords[1][0] = rustyDomeSc;
 	 	coords[1][1] = hillSideSc;
 	 	coords[1][2] = darkFieldSc;
 	 	coords[2][1] = darkTrailSc;
@@ -73,21 +80,30 @@ public class Main {
 
 		currentScene.getDirectionString();
 		currentScene.getVideo();
-        parserdemo.output.setText(currentScene.directionString);
-        parserdemo.videoField.setIcon(currentScene.sceneVideo);
+        Gui.output.setText(currentScene.directionString);
+        Gui.videoField.setIcon(currentScene.sceneVideo);
 
     }
 
     public static void changeScene(Scene[][] coords, int x, int y) {
     	currentScene = coords[x][y];
+    	//currentScene.setExits(northOpen, , Dir, Dir);
     }
 
+/////////////////////////////////////////////////////
+//IMPORTANT NOTE. I made these three methods static to get the program to work. I changed them to non static to see what would happen, trying to do any kind of input would cause AWT eventqeue
+//exception. I believe this is because of a conflict with JTextField, because when I went to Gui and made JTextField a non static object it worked. for the time being
+//I will leave it like this but this note is here to let me knwo that this is a possibiility for improving this code later.
+//
+//
+//
+/////////////////////////////////////////////////////
 
      public static void processInput(JTextField parser){
 		String input = parser.getText();
-		if (input.equals(north) || input.equals(n)) {
+		if (input.equals(north) || input.equals(nChar)) {
 			
-			if (northOpen != null) {
+			if (currentScene.northOpen != null) {
 				y--;
 				changeScene(coords, x, y);
 				displayScene();
@@ -97,9 +113,9 @@ public class Main {
 			
 			parser.setText(">");
 	 	} 
-	 	if (input.equals(east) || input.equals(e)) {
+	 	if (input.equals(east) || input.equals(eChar)) {
 			
-			if (eastOpen != null) {
+			if (currentScene.eastOpen != null) {
 				x++;
 				changeScene(coords, x, y);
 				displayScene();
@@ -109,9 +125,9 @@ public class Main {
 			
 			parser.setText(">");
 	 	} 
-	 	if (input.equals(south) || input.equals(s)) {
+	 	if (input.equals(south) || input.equals(sChar)) {
 	 		
-	 		if (southOpen != null) {
+	 		if (currentScene.southOpen != null) {
 				y++;
 				changeScene(coords, x, y);
 				displayScene();
@@ -121,9 +137,9 @@ public class Main {
 			
 			parser.setText(">");
 	 	} 
-	 	if (input.equals(west) || input.equals(w)) {
+	 	if (input.equals(west) || input.equals(wChar)) {
 	 		
-	 		if (westOpen != null) {
+	 		if (currentScene.westOpen != null) {
 				x--;
 				changeScene(coords, x, y);
 				displayScene();
