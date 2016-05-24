@@ -1,19 +1,18 @@
 
 
 import javax.swing.*;
-
-
+import java.util.HashMap;
+import java.util.Set;
 public class Scene {
 
 	public ImageIcon sceneVideo;
 	public String directionString;
-	
+	public HashMap<String, Scene> vantages;
 
 	 Dir northOpen = new Dir();
 	 Dir eastOpen = new Dir();
 	 Dir southOpen = new Dir();
 	 Dir westOpen = new Dir();
-
 /*
 	public static Scene[][] coords = new Scene[10][10];
 	public static ImageIcon hillSide = new ImageIcon("hillSide.gif");
@@ -58,13 +57,27 @@ public class Scene {
 			this.eastOpen = eastOpen;
 			this.southOpen = southOpen;
 			this.westOpen = westOpen;
+			vantages = new HashMap<String, Scene>();
 			
-		
 		}
 
-	public void setExits(Dir northOpen, Dir eastOpen, Dir southOpen, Dir westOpen){
+	
+
+
+
+	public void addVantage(String code, Scene vantage) {
+		vantages.put(code, vantage);
 	}
 
+//	public void setExits(Dir northOpen, Dir eastOpen, Dir southOpen, Dir westOpen){
+//	}
+
+	public HashMap<String, Scene> getVantages() {
+       return vantages;
+   }
+   public void setVantages(HashMap<String, Scene> vantages) {
+       this.vantages = vantages;
+   }
 
 	public void setVideo(ImageIcon sceneVideo) {
         this.sceneVideo = sceneVideo;
