@@ -1,0 +1,4 @@
+To create a jar file:
+>jar cvfe ClarencesParadise.jar Main *class.
+
+in this instance since i created a bat file, i'll use that in the manifest.
