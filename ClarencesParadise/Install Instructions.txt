@@ -1,0 +1,5 @@
+To Install just unzip to a folder and run the Runner2.bat file.
+
+For help enter '?' into the text entry area.
+
+NOTE that if you click outside the text entry area, your text won't appear when you type, you'll have to click inside the entry area to be able to type again!

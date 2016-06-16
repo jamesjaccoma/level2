@@ -4,6 +4,9 @@ import java.util.Iterator;
 import javax.swing.*;
 
 
+import java.io.*;//ADDED FOR SOUND TEST
+
+
 
 
 
@@ -21,14 +24,15 @@ public class Main {
 	public ImageIcon snowyTrail1 = new ImageIcon("gifs/snowyTrail1.gif");
 	public ImageIcon snowyTrail2 = new ImageIcon("gifs/snowyTrail2.gif");
 
-	public ImageIcon topStairsAnts = new ImageIcon("gifs/topofStairsAnts.gif");
-	public ImageIcon topofStairs = new ImageIcon("gifs/topofStairs.gif");
+	public ImageIcon concreteArea = new ImageIcon("gifs/concreteArea.gif");
+	public ImageIcon antsAgain = new ImageIcon("gifs/antsAgain.gif");
+	public ImageIcon backStairs = new ImageIcon("gifs/backStairs2.gif");
 	public ImageIcon hillSled = new ImageIcon("gifs/hillSideSled.gif");
 	public ImageIcon hillStone = new ImageIcon("gifs/hillSideStone.gif");
 	public ImageIcon hillStick = new ImageIcon("gifs/hillSideStick.gif");
 	
-	public ImageIcon pyreCloseup = new ImageIcon("gifs/pyre2.gif");
-	public ImageIcon pyre = new ImageIcon("gifs/pyre.gif");
+	public ImageIcon spikyPlantClose = new ImageIcon("gifs/spikyPlantClose.gif");
+	public ImageIcon spikyPlant = new ImageIcon("gifs/spikyPlant.gif");
 
 	public static ImageIcon pylonActive = new ImageIcon("gifs/pylonFinalActive.gif"); //had to make this static so I could call it from the processcommand function
 	public ImageIcon pylonUnactive = new ImageIcon("gifs/pylonFinalUnactive.gif");
@@ -51,18 +55,21 @@ public class Main {
 	public ImageIcon leanScreen = new ImageIcon("gifs/leanScreen.gif");
 	public ImageIcon deadTreeScreen = new ImageIcon("gifs/deadTreeScreen.gif");
 
-	public ImageIcon pictoScreen = new ImageIcon("gifs/pictoScreen(960x).png");
-	public ImageIcon mapScreen1 = new ImageIcon("gifs/mapScreen1(960x).png");
+	public ImageIcon pictoScreen = new ImageIcon("gifs/pictoScreen(altered).png");
+	public ImageIcon mapScreen1 = new ImageIcon("gifs/mapScreen1(altered).png");
 	public ImageIcon mapScreen2 = new ImageIcon("gifs/mapScreen2(960x).png");
 	public ImageIcon numeralScreen = new ImageIcon("gifs/numeralScreen(960x).png");
 
+	public static ImageIcon helpScreen = new ImageIcon("gifs/help.png");
 
+	public static File soundTest1 = new File("audio/soundTest1.wav");
+	public static File soundTest2 = new File("audio/soundTest2.wav");
 
 
 	public static Scene[][] coords = new Scene[15][15];
 	
-	public static int x = 2;
-	public static int y = 8;
+	public static int x = 3;
+	public static int y = 6;
 	private static Scene currentScene;
 
 	static String north = new String("north");
@@ -74,7 +81,7 @@ public class Main {
 	static String sChar = new String("s");
 	static String wChar = new String("w");
 
-	static String victoryCode = new String("374776292062755");
+	static String victoryCode = new String("347769206255");
 	static String help = new String("?");
 	static Dir northOpen = new Dir();
 	static Dir eastOpen = new Dir();
@@ -83,22 +90,26 @@ public class Main {
 
 	public Main(){
 		Gui gui = new Gui();
+		Gui.parser.requestFocus();
 		createScenes();
 		changeScene(coords, x, y);
 		displayScene();
 	}
+
+
 
 	private void createScenes() {
 
 		//Scene rustyDomeSc, hillSideSc, darkFieldSc, darkTrailSc, snowyTreeSc, antsBuckSc, wavesLappingSc;
 		
 		//VANTAGES
-	 	Scene topStairsAntsVa = new Scene(topStairsAnts, "0, 2", null, null, null, null);
+	 	Scene topStairsAntsVa = new Scene(antsAgain, "0, 2", null, null, null, null);
 		Scene antsBuckVa = new Scene(antsBuck1, "0", null, null, null, null);
 		Scene hillSledVa = new Scene(hillSled, "0", null, null, null, null);
 		Scene hillStoneVa = new Scene(hillStone, "0", null, null, null, null);
 		Scene hillStickVa = new Scene(hillStick, "0", null, null, null, null);
-		Scene pyreCloseupVa = new Scene(pyreCloseup, "0", null, null, null, null);
+		//Scene pyreCloseupVa = new Scene(pyreCloseup, "0", null, null, null, null);
+		Scene spikyPlantCloseVa = new Scene(spikyPlantClose, "0", null, null, null, null);
 		Scene pictoScreenVa = new Scene(pictoScreen, "0", null, null, null, null);
 		Scene numeralScreenVa = new Scene(numeralScreen, "0", null, null, null, null);
 		Scene mapScreen1Va = new Scene(mapScreen1, "0", null, null, null, null);
@@ -115,11 +126,11 @@ public class Main {
 	 	
 	 	Scene darkTrailSc = new Scene(darkTrail, "North, South, West", northOpen, null, southOpen, westOpen);
 
-	 	Scene leanScreenSc = new Scene(leanScreen, "North, East", northOpen, eastOpen, null, null);
+	 	Scene leanScreenSc = new Scene(leanScreen, "North, East, 1", northOpen, eastOpen, null, null);
 
-	 	Scene twoTreeScreenSc = new Scene(twoTreeScreen, "North, West", northOpen, null, null, westOpen);
+	 	Scene twoTreeScreenSc = new Scene(twoTreeScreen, "North, West, 4, 12", northOpen, null, null, westOpen);
 
-	 	Scene deadTreeScreenSc = new Scene(deadTreeScreen, "North, East, West", northOpen, eastOpen, null, westOpen);
+	 	Scene deadTreeScreenSc = new Scene(deadTreeScreen, "North, East, West, 7", northOpen, eastOpen, null, westOpen);
 
 	 	Scene redTreeSc = new Scene(redTree, "East, West", null, eastOpen, null, westOpen);
 
@@ -132,7 +143,7 @@ public class Main {
 	 	
 	 	Scene sunBeam2Sc = new Scene(sunBeam2, "West", null, null, null, westOpen);
 
-		Scene pylonSc = new Scene(pylonUnactive, "South", null, null, southOpen, null);
+		Scene pylonSc = new Scene(pylonUnactive, "South", null, null, southOpen, null, soundTest2);
 		
 		Scene spinWheelSc = new Scene(spinWheel, "South, West", null, null, southOpen, westOpen);
 
@@ -160,14 +171,19 @@ public class Main {
 
 		Scene treeLineSc = new Scene(treeLine, "East", null, eastOpen, null, null);
 
-		Scene topofStairsSc = new Scene(topofStairs, "North, South, 1", northOpen, null, southOpen, null);
+		Scene backStairsSc = new Scene(backStairs, "North, East, South", northOpen, eastOpen, southOpen, null);
 
-		Scene pyreSc = new Scene(pyre, "North", northOpen, null, null, null);
+		Scene spikyPlantSc = new Scene(spikyPlant, "North, 3", northOpen, null, null, null);
+
+		//Scene topofStairsSc = new Scene(topofStairs, "North, South, 1", northOpen, null, southOpen, null);
+
+		//Scene pyreSc = new Scene(pyre, "North", northOpen, null, null, null);
 
 		Scene vibrantFieldSc = new Scene(vibrantField, "North, West", northOpen, null, null, westOpen);
 
 		Scene bigTreeLeanSc = new Scene(bigTreeLean, "East, South, West", null, eastOpen, southOpen, westOpen);
 
+		Scene concreteAreaSc = new Scene(concreteArea, "West, 1", null, null, null, westOpen);
 
 
 		
@@ -185,8 +201,10 @@ public class Main {
 	 	hillSideSc.addVantage("6", hillSledVa);
 	 	hillSideSc.addVantage("11", hillStickVa);
 
-	 	topofStairsSc.addVantage("1", topStairsAntsVa);
+	 	concreteAreaSc.addVantage("1", topStairsAntsVa);
 	 	topStairsAntsVa.addVantage("2", antsBuckVa);
+
+	 	spikyPlantSc.addVantage("3", spikyPlantCloseVa);
 	 	
 	 	twoTreeScreenSc.addVantage("12", numeralScreenVa);
 	 	twoTreeScreenSc.addVantage("4", mapScreen2Va);
@@ -204,7 +222,9 @@ public class Main {
 	 	hillSledVa.addVantage("0", hillSideSc);
 	 	hillStickVa.addVantage("0", hillSideSc);
 
-	 	topStairsAntsVa.addVantage("0", topofStairsSc);
+	 	spikyPlantCloseVa.addVantage("0", spikyPlantSc);
+
+	 	topStairsAntsVa.addVantage("0", concreteAreaSc);
 	 	antsBuckVa.addVantage("0", topStairsAntsVa);
 
 	 	numeralScreenVa.addVantage("0", twoTreeScreenSc);
@@ -216,8 +236,9 @@ public class Main {
 	 	
 	 	//COORD MAP
 	 
-	 	coords[2][9] = pyreSc;
-	 	coords[2][8] = topofStairsSc;
+	 	coords[2][9] = spikyPlantSc;
+	 	coords[2][8] = backStairsSc;
+	 	coords[3][8] = concreteAreaSc;
 	 	
 	 	coords[2][7] = sunBeam1Sc;
 		coords[3][7] = vibrantFieldSc;
@@ -252,7 +273,48 @@ public class Main {
 		coords[4][6] = hillSideSc;
 
 	 }
+////////FOR SOUND TEST//////////
 
+	public static File currentAudio; 
+
+	public static void playSceneSound() {
+
+		if (currentScene.soundFile != null) {
+			
+			currentAudio = currentScene.getSoundFile();
+			SoundHandler2.playLoop(currentScene.soundFile);
+		
+		} else {
+			if (currentAudio != null){ //Without this, you get a null pointer exception, because playStop() is trying to reference something that doesn't exist. 
+										//It's trying to stop something that hasn't been started. When a file is played it's stored in the currentAudio variable.
+
+			SoundHandler2.playStop();
+				}
+			}
+		
+		
+	}
+
+	/*TEMP STORAGE FOR CODE, This was a previous attempt.
+	public static void playSceneSound() {
+
+		if (currentScene.soundFile != null) {
+			
+			currentAudio = currentScene.getSoundFile();
+			SoundHandler2.playLoop(currentScene.soundFile);
+		
+		} else if (currentScene.soundFile == null) {
+			if (currentAudio != null) {
+
+			SoundHandler2.playStop(currentAudio);
+			}
+		}
+		
+	}
+
+	*/
+/////////////////////////////////
+	
 	public static void displayScene() {
 
 		currentScene.getDirectionString();
@@ -260,6 +322,9 @@ public class Main {
         Gui.output.setText(currentScene.directionString);
         Gui.videoField.setIcon(currentScene.sceneVideo);
 
+        playSceneSound(); /////////////FOR SOUND TEST
+
+      
     }
 
     public static void changeScene(Scene[][] coords, int x, int y) {
@@ -271,7 +336,15 @@ public class Main {
     	currentScene = vantage;
 	}
 
+	public static void processEscKey() {
+	        Icon i = Gui.videoField.getIcon(); //This works, but before I had [ImageIcon i] and it said imageIcon cant be converted to Icon. What the hell is Icon? Well whatever.
+	        System.out.println("escape pressed");
+	         
+	         if (i.equals(helpScreen)) {
 
+            displayScene();
+         }
+	}
 
 	public static void processInput(JTextField parser){
 		String input = parser.getText().toLowerCase();
@@ -318,9 +391,18 @@ public class Main {
 	 	} 
 	 	if (input.equals(victoryCode) && currentScene == coords[4][1]) { 
 	 	//I can't reference the scene object pylonSc itself, I have to instead reference it's index on the map. I guess because it was created in a private method?
-	 		currentScene.setVideo(pylonActive);
+	 		coords[4][1].setVideo(pylonActive);
+	 		coords[4][1].setSoundFile(soundTest1);
+	 		SoundHandler2.playStop();
 	 		displayScene();
+			/*for whatever reason when the victoryCode is entered, the soundFile for pylonSc changes, but on every other scene that soundTest2 plays. why? 
+			with the addition of SoundHandler2.playStop(); this problem is fixed, but I'm too tired to figure out why.
 	 		
+	 		
+	 	}
+
+	 	if (input.equals(help))	{
+	 		Gui.videoField.setIcon(helpScreen);
 	 	}
 	 	
 /*/VICTORY CONDITION
