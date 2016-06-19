@@ -1,0 +1,7 @@
+To make gifs for this LITE version. This is the best way I found.
+
+WITH EZGIF.COM
+upload the mp4
+convert to 10fps 600x auto
+resize 125 percent
+optimize gif with Lossy Medium method.
