@@ -84,6 +84,8 @@ public class Main {
 
 	static String victoryCode = new String("347769206255");
 	static String help = new String("?");
+	static String back = new String("back");
+
 	static Dir northOpen = new Dir();
 	static Dir eastOpen = new Dir();
 	static Dir southOpen = new Dir();
@@ -339,7 +341,8 @@ public class Main {
 
 	public static void processEscKey() {
 	        Icon i = Gui.videoField.getIcon(); //This works, but before I had [ImageIcon i] and it said imageIcon cant be converted to Icon. What the hell is Icon? Well whatever.
-	        System.out.println("escape pressed");
+	        System.out.println("F1 pressed");
+
 	         
 	         if (i.equals(helpScreen)) {
 
@@ -405,6 +408,18 @@ public class Main {
 
 	 	if (input.equals(help))	{
 	 		Gui.videoField.setIcon(helpScreen);
+	 		parser.setText("");
+	 	}
+
+	 	if (input.equals(back)) {
+	 		Icon i = Gui.videoField.getIcon();
+	 		System.out.println("back typed");
+	 		parser.setText("");
+
+		 		if (i.equals(helpScreen)) {
+
+	            displayScene();
+	         }
 	 	}
 	 	
 /*VICTORY CONDITION

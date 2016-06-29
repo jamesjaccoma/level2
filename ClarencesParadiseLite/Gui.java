@@ -163,7 +163,7 @@ class Gui extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        if(e.getKeyCode() == KeyEvent.VK_F1) //Why was VK_ESCAPE working a second ago and not now? I changed it to VK_SPACE to test, and that works. It's suggested to use KeyBindings instead.
       {
          
          Main.processEscKey();
